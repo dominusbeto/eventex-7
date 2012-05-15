@@ -1,4 +1,6 @@
 # Django settings for src project.
+from unipath import Path
+PROJECT_DIR = Path(__file__).parent
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
