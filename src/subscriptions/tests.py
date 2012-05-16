@@ -2,6 +2,8 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 
+from .models import Subscription
+
 
 class SubscriptionUrlTest(TestCase):
     def test_get_subscribe_page(self):
@@ -14,6 +16,16 @@ class SubscriptionUrlTest(TestCase):
 
 
 class SubscriptionModelTest(TestCase):
-    # 1) O modelo deve ter os campos: name, cpf, email, phone, created_at
+    def test_create(self):
+        "O modelo deve ter os campos: name, cpf, email, phone, created_at."
+
+        s = Subscription.objects.create(
+            name='Henrique Bastos',
+            cpf='012345678901',
+            email='henrique@bastos.net',
+            phone='21-96186180'
+        )
+        self.assertEquals(s.id, 1)
+
     # 2) O cpf deve ser único
     # 3) O email deve ser único
