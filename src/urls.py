@@ -6,6 +6,7 @@ from django.conf.urls import patterns, include, url
 
 urlpatterns = patterns('src',
     url(r'^$', 'core.views.homepage', name='homepage'),
+    url(r'^inscricao/', include('src.subscriptions.urls', namespace='subscriptions')),
 
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
