@@ -7,7 +7,9 @@ from ..models import Subscription
 
 class SuccessViewTest(TestCase):
     def setUp(self):
-        self.resp = self.client.get(reverse('subscriptions:success', args=[1]))
+        s = Subscription.objects.create(name='Henrique Bastos', cpf='00000000000',
+                                        email='henrique@bastos.net', phone='21-96186180')
+        self.resp = self.client.get(reverse('subscriptions:success', args=[s.pk]))
 
     def test_get(self):
         "Visita /inscrica/1/ e retorna 200."
