@@ -2,6 +2,8 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 
+from ..models import Subscription
+
 
 class SuccessViewTest(TestCase):
     def setUp(self):
@@ -14,4 +16,9 @@ class SuccessViewTest(TestCase):
     def test_template(self):
         "Renderiza o template"
         self.assertTemplateUsed(self.resp, 'subscriptions/subscription_detail.html')
+
+    def test_context(self):
+        "Verifica instância de subscription no contexto."
+        subscription = self.resp.context['subscription']
+        self.assertIsInstance(subscription, Subscription)
 
