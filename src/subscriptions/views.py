@@ -4,7 +4,8 @@ from django.views.generic.simple import direct_to_template
 
 
 def subscribe(request):
-    return direct_to_template(request, 'subscriptions/subscription_form.html')
+    return direct_to_template(request, 'subscriptions/subscription_form.html',
+                              {'form': None})
 
 
 def success(request, pk):
