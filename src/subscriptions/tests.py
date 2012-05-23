@@ -99,3 +99,22 @@ class SubscribeViewPostTest(TestCase):
         "Post deve salvar Subscription no banco."
         self.assertTrue(Subscription.objects.exists())
 
+
+class SubscribeViewInvalidPostTest(TestCase):
+    def setUp(self):
+        data = dict(name='Henrique Bastos', cpf='000000000001',
+                    email='henrique@bastos.net', phone='21-96186180')
+        self.resp = self.client.post(reverse('subscriptions:subscribe'), data)
+
+    def test_show_page(self):
+        "Post inválido não deve redirecionar."
+        self.assertEqual(200, self.resp.status_code)
+
+    def test_form_errors(self):
+        "Form deve conter erros."
+        self.assertTrue(self.resp.context['form'].errors)
+
+    def test_must_not_save(self):
+        "Dados não devem ser salvos."
+        self.assertFalse(Subscription.objects.exists())
+
