@@ -39,6 +39,7 @@ def new(request):
 
 
 def success(request, pk):
+    subscription = Subscription.objects.get(pk=pk)
     return direct_to_template(request,
                               'subscriptions/subscription_detail.html',
-                              {'subscription': Subscription()})
+                              {'subscription': subscription})
