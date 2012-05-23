@@ -4,6 +4,7 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 
 from .models import Subscription
+from .forms import SubscriptionForm
 
 
 class SubscriptionUrlTest(TestCase):
