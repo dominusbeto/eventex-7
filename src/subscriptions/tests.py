@@ -71,3 +71,8 @@ class SubscribeViewTest(TestCase):
         "A resposta deve conter o formulário de inscrição"
         self.assertIsInstance(self.resp.context['form'], SubscriptionForm)
 
+    def test_form_has_fields(self):
+        "O formulário de deve conter campos: name, email, cpf e phone."
+        form = self.resp.context['form']
+        self.assertItemsEqual(['name', 'email', 'cpf', 'phone'], form.fields)
+
