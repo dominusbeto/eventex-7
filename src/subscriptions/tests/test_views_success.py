@@ -4,12 +4,14 @@ from django.core.urlresolvers import reverse
 
 
 class SuccessViewTest(TestCase):
+    def setUp(self):
+        self.resp = self.client.get(reverse('subscriptions:success', args=[1]))
+
     def test_get(self):
         "Visita /inscrica/1/ e retorna 200."
-        response = self.client.get(reverse('subscriptions:success', args=[1]))
-        self.assertEquals(200, response.status_code)
+        self.assertEquals(200, self.resp.status_code)
 
-    # verifica template
     def test_template(self):
-        response = self.client.get(reverse('subscriptions:success', args=[1]))
-        self.assertTemplateUsed(response, 'subscriptions/subscription_detail.html')
+        "Renderiza o template"
+        self.assertTemplateUsed(self.resp, 'subscriptions/subscription_detail.html')
+
