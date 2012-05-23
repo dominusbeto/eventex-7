@@ -38,4 +38,4 @@ def new(request):
 
 
 def success(request, pk):
-    return HttpResponse()
+    return direct_to_template(request, 'subscriptions/subscription_detail.html')
