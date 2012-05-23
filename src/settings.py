@@ -1,4 +1,5 @@
-# Django settings for src project.
+# coding: utf-8
+import os
 from unipath import Path
 PROJECT_DIR = Path(__file__).parent
 
@@ -21,6 +22,18 @@ DATABASES = {
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
+
+DEFAULT_FROM_EMAIL = 'contato@eventex.com.br'
+
+if 'True' == os.environ.get('SEND_EMAIL', 'False'):
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
+    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
