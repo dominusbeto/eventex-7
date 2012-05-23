@@ -10,3 +10,6 @@ class SuccessViewTest(TestCase):
         self.assertEquals(200, response.status_code)
 
     # verifica template
+    def test_template(self):
+        response = self.client.get(reverse('subscriptions:success', args=[1]))
+        self.assertTemplateUsed(response, 'subscriptions/subscription_detail.html')
