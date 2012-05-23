@@ -8,16 +8,28 @@ from .forms import SubscriptionForm
 
 def subscribe(request):
     if request.method == 'POST':
-        form = SubscriptionForm(request.POST)
-        if form.is_valid():
-            subscription = form.save()
-            return HttpResponseRedirect(reverse('subscriptions:success',
-                                                args=[subscription.pk]))
+        return create(request)
     else:
-        form = SubscriptionForm()
+        return new(request)
 
-    return direct_to_template(request, 'subscriptions/subscription_form.html',
+
+def create(request):
+    form = SubscriptionForm(request.POST)
+
+    if not form.is_valid():
+        return direct_to_template(request, 'subscriptions/subscription_form.html',
                               {'form': form})
+
+    subscription = form.save()
+
+    return HttpResponseRedirect(reverse('subscriptions:success',
+                                        args=[subscription.pk]))
+
+
+def new(request):
+    return direct_to_template(request, 'subscriptions/subscription_form.html',
+                              {'form': SubscriptionForm()})
+
 
 def success(request, pk):
     return HttpResponse()
