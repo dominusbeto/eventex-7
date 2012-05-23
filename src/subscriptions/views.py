@@ -6,6 +6,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 
 from .forms import SubscriptionForm
+from .models import Subscription
 
 
 def subscribe(request):
@@ -38,4 +39,6 @@ def new(request):
 
 
 def success(request, pk):
-    return direct_to_template(request, 'subscriptions/subscription_detail.html')
+    return direct_to_template(request,
+                              'subscriptions/subscription_detail.html',
+                              {'subscription': Subscription()})
