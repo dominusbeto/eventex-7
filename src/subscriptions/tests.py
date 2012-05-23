@@ -53,3 +53,10 @@ class SubscriptionModelUniqueTest(TestCase):
         # Verifica se ocorre o erro de integridade ao persistir.
         self.assertRaises(IntegrityError, s.save)
 
+
+class SubscribeViewTest(TestCase):
+    def test_get(self):
+        "Ao visitar /inscricao/ a página de inscrição é exibida."
+        response = self.client.get(reverse('subscriptions:subscribe'))
+        self.assertEquals(200, response.status_code)
+
