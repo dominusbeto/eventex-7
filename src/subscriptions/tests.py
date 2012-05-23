@@ -60,3 +60,8 @@ class SubscribeViewTest(TestCase):
         response = self.client.get(reverse('subscriptions:subscribe'))
         self.assertEquals(200, response.status_code)
 
+    def test_use_template(self):
+        "O corpo da resposta deve conter a renderização de um template."
+        response = self.client.get(reverse('subscriptions:subscribe'))
+        self.assertTemplateUsed(response, 'subscriptions/subscription_form.html')
+
