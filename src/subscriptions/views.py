@@ -1,9 +1,10 @@
 # coding: utf-8
-from django.http import Http404, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.views.generic.simple import direct_to_template
 from django.core.urlresolvers import reverse
 from django.core.mail import send_mail
 from django.conf import settings
+from django.shortcuts import get_object_or_404
 
 from .forms import SubscriptionForm
 from .models import Subscription
@@ -39,10 +40,7 @@ def new(request):
 
 
 def success(request, pk):
-    try:
-        subscription = Subscription.objects.get(pk=pk)
-    except Subscription.DoesNotExist:
-        raise Http404()
+    subscription = get_object_or_404(Subscription, pk=pk)
 
     return direct_to_template(request,
                               'subscriptions/subscription_detail.html',
