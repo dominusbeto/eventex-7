@@ -1,7 +1,9 @@
-<h1>Formulário de inscrição</h1>
+{% extends 'base.html' %}
 
-<form action="." method="POST">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="Enviar!">
-</form>
+{% block content %}
+  <form action="." method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Enviar!" class="button"> 
+  </form> 
+{%  endblock content %}
