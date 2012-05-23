@@ -55,13 +55,13 @@ class SubscriptionModelUniqueTest(TestCase):
 
 
 class SubscribeViewTest(TestCase):
+    def setUp(self):
+        self.resp = self.client.get(reverse('subscriptions:subscribe'))
+
     def test_get(self):
         "Ao visitar /inscricao/ a página de inscrição é exibida."
-        response = self.client.get(reverse('subscriptions:subscribe'))
-        self.assertEquals(200, response.status_code)
+        self.assertEquals(200, self.resp.status_code)
 
     def test_use_template(self):
         "O corpo da resposta deve conter a renderização de um template."
-        response = self.client.get(reverse('subscriptions:subscribe'))
-        self.assertTemplateUsed(response, 'subscriptions/subscription_form.html')
-
+        self.assertTemplateUsed(self.resp, 'subscriptions/subscription_form.html')
