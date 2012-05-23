@@ -1,6 +1,7 @@
 # coding: utf-8
 from django.test import TestCase
 from django.core.urlresolvers import reverse
+from django.conf import settings
 
 from ..models import Subscription
 
@@ -25,7 +26,7 @@ class SuccessViewTest(TestCase):
         self.assertIsInstance(subscription, Subscription)
 
     def test_html(self):
-        self.assertContains(self.resp, 'Henrique Bastos')
+        self.assertNotContains(self.resp, settings.TEMPLATE_STRING_IF_INVALID)
 
 class SuccessViewNotFound(TestCase):
     def test_not_found(self):

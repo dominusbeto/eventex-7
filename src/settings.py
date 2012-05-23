@@ -5,6 +5,7 @@ PROJECT_DIR = Path(__file__).parent
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+TEMPLATE_STRING_IF_INVALID = "INVALID CONTEXT!"
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
