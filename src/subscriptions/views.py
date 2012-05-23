@@ -2,6 +2,8 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic.simple import direct_to_template
 from django.core.urlresolvers import reverse
+from django.core.mail import send_mail
+from django.conf import settings
 
 from .forms import SubscriptionForm
 
@@ -21,6 +23,10 @@ def create(request):
                               {'form': form})
 
     subscription = form.save()
+    send_mail(subject=u'Cadastrado com Sucesso',
+              message=u'Obrigado pela sua inscrição!',
+              from_email=settings.DEFAULT_FROM_EMAIL,
+              recipient_list=[subscription.email])
 
     return HttpResponseRedirect(reverse('subscriptions:success',
                                         args=[subscription.pk]))
