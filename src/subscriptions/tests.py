@@ -65,3 +65,8 @@ class SubscribeViewTest(TestCase):
     def test_use_template(self):
         "O corpo da resposta deve conter a renderização de um template."
         self.assertTemplateUsed(self.resp, 'subscriptions/subscription_form.html')
+
+    def test_has_form(self):
+        "A resposta deve conter o formulário de inscrição"
+        self.assertIsInstance(self.resp.context['form'], SubscriptionForm)
+
