@@ -2,6 +2,7 @@
 from django.db import IntegrityError
 from django.test import TestCase
 from django.core.urlresolvers import reverse
+from django.core import mail
 
 from .models import Subscription
 from .forms import SubscriptionForm
@@ -98,6 +99,10 @@ class SubscribeViewPostTest(TestCase):
     def test_save(self):
         "Post deve salvar Subscription no banco."
         self.assertTrue(Subscription.objects.exists())
+
+    def test_email_sent(self):
+        "Post deve notificar visitante por email."
+        self.assertEqual(1, len(mail.outbox))
 
 
 class SubscribeViewInvalidPostTest(TestCase):
