@@ -26,3 +26,8 @@ class SuccessViewTest(TestCase):
 
     def test_html(self):
         self.assertContains(self.resp, 'Henrique Bastos')
+
+class SuccessViewNotFound(TestCase):
+    def test_not_found(self):
+        response = self.client.get(reverse('subscriptions:success', args=[0]))
+        self.assertEqual(404, response.status_code)
