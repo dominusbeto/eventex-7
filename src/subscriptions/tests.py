@@ -83,3 +83,19 @@ class SubscribeViewTest(TestCase):
         self.assertContains(self.resp, 'type="text"', 4)
         self.assertContains(self.resp, 'submit')
 
+
+class SubscribeViewPostTest(TestCase):
+    def setUp(self):
+        data = dict(name='Henrique Bastos', cpf='00000000000',
+                    email='henrique@bastos.net', phone='21-96186180')
+        self.resp = self.client.post(reverse('subscriptions:subscribe'), data)
+
+    def test_post(self):
+        "Post deve redirecionar para página de sucesso."
+        self.assertRedirects(self.resp,
+                             reverse('subscriptions:success', args=[1]))
+
+    def test_save(self):
+        "Post deve salvar Subscription no banco."
+        self.assertTrue(Subscription.objects.exists())
+
