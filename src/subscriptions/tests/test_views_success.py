@@ -22,3 +22,5 @@ class SuccessViewTest(TestCase):
         subscription = self.resp.context['subscription']
         self.assertIsInstance(subscription, Subscription)
 
+    def test_html(self):
+        self.assertContains(self.resp, 'Henrique Bastos')
