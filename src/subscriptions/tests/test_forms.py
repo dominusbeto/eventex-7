@@ -17,6 +17,12 @@ class SubscriptionFormTest(TestCase):
         self.assertDictEqual(form.errors,
                              {'cpf': [u'O CPF deve ter 11 dígitos']})
 
+    def test_must_inform_email_or_phone(self):
+        u'Email e Phone são opcionais, mas ao menos 1 precisa ser informado.'
+        form = self.make_and_validate_form(email='', phone='')
+        self.assertDictEqual(form.errors,
+                             {'__all__': [u'Informe seu e-mail ou telefone.']})
+
     def make_and_validate_form(self, **kwargs):
         data = dict(name='Henrique Bastos', email='henrique@bastos.net', cpf='00000000000', phone='21-96186180')
         data.update(kwargs)

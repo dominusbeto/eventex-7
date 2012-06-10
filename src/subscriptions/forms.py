@@ -18,3 +18,12 @@ class SubscriptionForm(forms.ModelForm):
     class Meta:
         model = Subscription
         exclude = ('paid',)
+
+    def clean(self):
+        super(SubscriptionForm, self).clean()
+
+        if not self.cleaned_data.get('email') and \
+           not self.cleaned_data.get('phone'):
+            raise forms.ValidationError(
+                _(u'Informe seu e-mail ou telefone.'))
+        return self.cleaned_data
