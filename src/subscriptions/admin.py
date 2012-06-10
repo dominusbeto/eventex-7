@@ -1,11 +1,17 @@
 # coding: utf-8
+from django.utils.datetime_safe import datetime
 from django.contrib import admin
 from .models import Subscription
 
 
 class SubscriptionAdmin(admin.ModelAdmin):
-    list_display = ('name', 'cpf', 'email', 'phone', 'created_at')
+    list_display = ('name', 'cpf', 'email', 'phone', 'created_at',
+                    'subscribed_today')
     date_hierarchy = 'created_at'
     search_fields = ('name', 'cpf', 'email', 'phone', 'created_at')
+
+    def subscribed_today(self, obj):
+        return obj.created_at.date() == datetime.today().date()
+    subscribed_today.short_description = u'Inscrito hoje?'
 
 admin.site.register(Subscription, SubscriptionAdmin)
