@@ -3,4 +3,7 @@ from django.contrib import admin
 from .models import Subscription
 
 
-admin.site.register(Subscription)
+class SubscriptionAdmin(admin.ModelAdmin):
+    list_display = ('name', 'cpf', 'email', 'phone', 'created_at')
+
+admin.site.register(Subscription, SubscriptionAdmin)
