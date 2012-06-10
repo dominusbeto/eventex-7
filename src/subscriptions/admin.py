@@ -9,6 +9,7 @@ class SubscriptionAdmin(admin.ModelAdmin):
                     'subscribed_today')
     date_hierarchy = 'created_at'
     search_fields = ('name', 'cpf', 'email', 'phone', 'created_at')
+    list_filter = ['created_at']
 
     def subscribed_today(self, obj):
         return obj.created_at.date() == datetime.today().date()
