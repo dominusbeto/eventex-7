@@ -32,12 +32,3 @@ class SubscriptionModelUniqueTest(TestCase):
         # Verifica se ocorre o erro de integridade ao persistir.
         self.assertRaises(IntegrityError, s.save)
 
-    def test_email_must_be_unique(self):
-        "O email deve ser único."
-
-        # Instancia a inscrição com Email existente
-        s = Subscription(name='Henrique Bastos', cpf='00000000000',
-                         email='henrique@bastos.net', phone='21-96186180')
-        # Verifica se ocorre o erro de integridade ao persistir.
-        self.assertRaises(IntegrityError, s.save)
-
