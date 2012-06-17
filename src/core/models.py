@@ -52,7 +52,30 @@ class Talk(models.Model):
     def __unicode__(self):
         return self.title
 
+    @property
+    def slides(self):
+        return self.media_set.filter(type="SL")
+
+    @property
+    def videos(self):
+        return self.media_set.filter(type="YT")
+
 
 class Course(Talk):
     slots = models.IntegerField()
     notes = models.TextField()
+
+
+class Media(models.Model):
+    MEDIAS = (
+        ('SL', 'SlideShare'),
+        ('YT', 'Youtube'),
+        )
+
+    talk = models.ForeignKey('Talk')
+    type = models.CharField(max_length=2, choices=MEDIAS)
+    title = models.CharField(u'Título', max_length=255, help_text=u'No caso do slideshare será usado como doc_id.')
+    media_id = models.CharField(max_length=255)
+
+    def __unicode__(self):
+        return u'%s - %s' % (self.talk.title, self.title)

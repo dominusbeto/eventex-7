@@ -28,5 +28,7 @@ def talk_detail(request, pk):
     talk = get_object_or_404(Talk, pk=pk)
     context = {
         'talk': talk,
+        'slides': talk.media_set.filter(type='SL'),
+        'videos': talk.media_set.filter(type='YT'),
     }
     return direct_to_template(request, 'core/talk_detail.html', context)

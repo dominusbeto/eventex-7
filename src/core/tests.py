@@ -6,6 +6,7 @@ from .models import Speaker
 from .models import Contact
 from .models import Talk
 from .models import PeriodManager
+from .models import Media
 
 
 class HomepageTest(TestCase):
@@ -66,6 +67,18 @@ class TalkModelTest(TestCase):
 
     def test_period_manager(self):
         self.assertIsInstance(Talk.objects, PeriodManager)
+
+
+class MediaModelTest(TestCase):
+    def setUp(self):
+        talk = Talk.objects.create(title=u'Talk 1', start_time='10:00')
+        self.media = Media.objects.create(talk=talk, type='YT', media_id='QjA5faZF1A8', title="Video")
+
+    def test_create(self):
+        self.assertEqual(1, self.media.pk)
+
+    def test_unicode(self):
+        self.assertEqual("Talk 1 - Video", unicode(self.media))
 
 
 class PeriodManagerTest(TestCase):
@@ -131,3 +144,9 @@ class TalkDetailTest(TestCase):
     def test_talk_in_context(self):
         talk = self.resp.context['talk']
         self.assertIsInstance(talk, Talk)
+
+    def test_videos_in_context(self):
+        self.assertIn('videos', self.resp.context)
+
+    def test_slides_in_context(self):
+        self.assertIn('slides', self.resp.context)
