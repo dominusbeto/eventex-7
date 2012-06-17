@@ -1,6 +1,7 @@
 # coding: utf-8
 from django.contrib import admin
 from .models import Speaker, Contact
+from .models import Talk
 
 
 class ContactInline(admin.TabularInline):
@@ -14,3 +15,4 @@ class SpeakerAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Speaker, SpeakerAdmin)
+admin.site.register(Talk)
