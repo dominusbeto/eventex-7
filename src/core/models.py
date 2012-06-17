@@ -1,4 +1,5 @@
 # coding: utf-8
+from datetime import time
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -27,10 +28,26 @@ class Contact(models.Model):
     value = models.CharField(_('Valor'), max_length=255)
 
 
+class PeriodManager(models.Manager):
+    midday = time(12)
+
+    def at_morning(self):
+        qs = self.filter(start_time__lt=self.midday)
+        qs = qs.order_by('start_time')
+        return qs
+
+    def at_afternoon(self):
+        qs = self.filter(start_time__gte=self.midday)
+        qs = qs.order_by('start_time')
+        return qs
+
+
 class Talk(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
     start_time = models.TimeField(blank=True)
+
+    objects = PeriodManager()
 
     def __unicode__(self):
         return self.title
