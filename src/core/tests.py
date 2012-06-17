@@ -144,9 +144,3 @@ class TalkDetailTest(TestCase):
     def test_talk_in_context(self):
         talk = self.resp.context['talk']
         self.assertIsInstance(talk, Talk)
-
-    def test_videos_in_context(self):
-        self.assertIn('videos', self.resp.context)
-
-    def test_slides_in_context(self):
-        self.assertIn('slides', self.resp.context)
