@@ -115,3 +115,19 @@ class TalksViewTest(TestCase):
 
     def test_afternoon_talks_in_context(self):
         self.assertIn('afternoon_talks', self.resp.context)
+
+
+class TalkDetailTest(TestCase):
+    def setUp(self):
+        Talk.objects.create(title="Talk", start_time='10:00')
+        self.resp = self.client.get(reverse('core:talk_detail', args=[1]))
+
+    def test_get(self):
+        self.assertEqual(200, self.resp.status_code)
+
+    def test_template(self):
+        self.assertTemplateUsed(self.resp, 'core/talk_detail.html')
+
+    def test_talk_in_context(self):
+        talk = self.resp.context['talk']
+        self.assertIsInstance(talk, Talk)
