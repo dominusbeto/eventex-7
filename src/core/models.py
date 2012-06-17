@@ -26,3 +26,11 @@ class Contact(models.Model):
     kind = models.CharField(_('Tipo'), max_length=1, choices=KINDS)
     value = models.CharField(_('Valor'), max_length=255)
 
+
+class Talk(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    start_time = models.TimeField(blank=True)
+
+    def __unicode__(self):
+        return self.title
