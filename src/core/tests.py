@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 from .models import Speaker
 from .models import Contact
 from .models import Talk
+from .models import PeriodManager
 
 
 class HomepageTest(TestCase):
@@ -62,6 +63,21 @@ class TalkModelTest(TestCase):
 
     def test_unicode(self):
         self.assertEqual(u'Introdução ao Django', unicode(self.talk))
+
+    def test_period_manager(self):
+        self.assertIsInstance(Talk.objects, PeriodManager)
+
+
+class PeriodManagerTest(TestCase):
+    def setUp(self):
+        Talk.objects.create(title=u'Morning Talk', start_time='10:00')
+        Talk.objects.create(title=u'Afternoon Talk', start_time='12:00')
+
+    def test_morning(self):
+        self.assertQuerysetEqual(Talk.objects.at_morning(), ['Morning Talk'], lambda t: t.title)
+
+    def test_afternoon(self):
+        self.assertQuerysetEqual(Talk.objects.at_afternoon(), ['Afternoon Talk'], lambda t: t.title)
 
 
 class SpeakerDetailTest(TestCase):
