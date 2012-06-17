@@ -1,5 +1,4 @@
 # coding: utf-8
-from datetime import time
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.views.generic.simple import direct_to_template
@@ -18,9 +17,8 @@ def speaker_detail(request, slug):
 
 
 def talks(request):
-    midday = time(12)
     context = {
-        'morning_talks': Talk.objects.filter(start_time__lt=midday),
-        'afternoon_talks': Talk.objects.filter(start_time__gte=midday),
+        'morning_talks': Talk.objects.at_morning(),
+        'afternoon_talks': Talk.objects.at_afternoon(),
     }
     return direct_to_template(request, 'core/talks.html', context)
