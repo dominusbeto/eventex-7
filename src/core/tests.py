@@ -4,6 +4,8 @@ from django.core.urlresolvers import reverse
 
 from .models import Speaker
 from .models import Contact
+from .models import Talk
+
 
 class HomepageTest(TestCase):
     def test_get_homepage(self):
@@ -47,6 +49,19 @@ class ContactModelTest(TestCase):
         contact = Contact.objects.create(speaker=self.speaker, kind='F', value='21-98989898')
         self.assertEqual(1, contact.pk)
 
+
+class TalkModelTest(TestCase):
+    def setUp(self):
+        self.talk = Talk.objects.create(
+            title=u'Introdução ao Django',
+            description=u'Descrição da Palestra',
+            start_time='10:00')
+
+    def test_create(self):
+        self.assertEqual(1, self.talk.pk)
+
+    def test_unicode(self):
+        self.assertEqual(u'Introdução ao Django', unicode(self.talk))
 
 
 class SpeakerDetailTest(TestCase):
