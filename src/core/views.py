@@ -2,13 +2,13 @@
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.views.generic.simple import direct_to_template
+from django.views.generic import TemplateView
+
 from src.core.models import Speaker
 from src.core.models import Talk
 
-
-def homepage(request):
-    context = RequestContext(request)
-    return render_to_response('index.html', context)
+class Homepage(TemplateView):
+    template_name='index.html'
 
 
 def speaker_detail(request, slug):
